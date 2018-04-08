@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     int num = Integer.parseInt(edt.getText().toString());
                     getMyRandom(num);
                 } else {
-                    Toast.makeText(this, "先输入随机数", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "先输入随机期数", Toast.LENGTH_SHORT).show();
                 }
                 break;
         }
@@ -74,6 +74,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void initData() {
         mList = new ArrayList<>();
         mMunTenList = new ArrayList<>();
+        big = 0;
+        small = 0;
+        single = 0;
+        doubles =0;
         if (mBig.isChecked()) {
             radioBtnFlag = 0;
         }
@@ -352,14 +356,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return third;
     }
 
-    /**
-     * 胜进模式 规律
-     */
-    private void getforthNum(int num) {
-//        for (int i = 0; i < num; i++) {
-//
-//        }
-
-    }
 
 }
