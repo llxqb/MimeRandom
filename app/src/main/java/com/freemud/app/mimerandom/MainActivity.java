@@ -128,6 +128,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         firstText();
         secondText();
         thirdText();
+        forthText1();
+        forthText2();
         String text6Content = "大:" + big + "   小:" + small + "   单:" + single + "   双:" + doubles;
 //        String text7Content = "本金:" + payMoney + "元  回报:" + getMoney + "元  赚取:" + (getMoney - payMoney) + "元";
         text6.setText(text6Content);
@@ -236,12 +238,89 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     mflag++;
                 }
             }
-
         }
         Log.d(TAG, "getMoney3=" + getMoney + "  payMoney3=" + payMoney);
         String text7Content = "本金:" + payMoney + "元   回报:" + getMoney + "元   赚取:" + (getMoney - payMoney) + "元";
         text3.setText(text7Content);
     }
+
+    /**
+     * 胜进模式
+     * 1.倍投反过来，1，2，4, 3次为一周期
+     */
+    private void forthText1() {
+        int payMoney = 0, getMoney = 0;
+        int mflag = 0;
+        for (int i = 0; i < mList.size(); i++) {
+            int key = mList.get(i);
+            if (radioBtnFlag == 0) {//大
+                if (key >= 11) {//中奖
+                    if (mflag > 2) {
+                        mflag = 0;
+                    }
+                    getMoney = getMoney + (int) Math.pow(2, mflag);
+                    mflag++;
+                } else {//没中奖
+                    payMoney = payMoney + (int) Math.pow(2, mflag);
+                    mflag = 0;
+                }
+            } else if (radioBtnFlag == 1) {//小
+                if (key < 11) {//中奖
+                    if (mflag > 2) {
+                        mflag = 0;
+                    }
+                    getMoney = getMoney + (int) Math.pow(2, mflag);
+                    mflag++;
+                } else {//没中奖
+                    payMoney = payMoney + (int) Math.pow(2, mflag);
+                    mflag = 0;
+                }
+            }
+
+        }
+        Log.d(TAG, "getMoney2=" + getMoney + "  payMoney2=" + payMoney);
+        String text7Content = "本金:" + payMoney + "元   回报:" + getMoney + "元   赚取:" + (getMoney - payMoney) + "元";
+        text4.setText(text7Content);
+    }
+
+    /**
+     * 胜进模式
+     * 2.倍投反过来，1，2，4，8， 4次为一周期
+     */
+    private void forthText2() {
+        int payMoney = 0, getMoney = 0;
+        int mflag = 0;
+        for (int i = 0; i < mList.size(); i++) {
+            int key = mList.get(i);
+            if (radioBtnFlag == 0) {//大
+                if (key >= 11) {//中奖
+                    if (mflag > 3) {
+                        mflag = 0;
+                    }
+                    getMoney = getMoney + (int) Math.pow(2, mflag);
+                    mflag++;
+                } else {//没中奖
+                    payMoney = payMoney + (int) Math.pow(2, mflag);
+                    mflag = 0;
+                }
+            } else if (radioBtnFlag == 1) {//小
+                if (key < 11) {//中奖
+                    if (mflag > 3) {
+                        mflag = 0;
+                    }
+                    getMoney = getMoney + (int) Math.pow(2, mflag);
+                    mflag++;
+                } else {//没中奖
+                    payMoney = payMoney + (int) Math.pow(2, mflag);
+                    mflag = 0;
+                }
+            }
+        }
+        Log.d(TAG, "getMoney5=" + getMoney + "  payMoney5=" + payMoney);
+        String text7Content = "本金:" + payMoney + "元   回报:" + getMoney + "元   赚取:" + (getMoney - payMoney) + "元";
+        text5.setText(text7Content);
+    }
+
 
     /**
      * 斐波拉契数列求和
@@ -270,7 +349,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //            array[i] = array[i - 1] + array[i - 2];
 //            s = array[i];
         }
-//        Log.d(TAG, "num=" + num + "   third =" + third);
         return third;
     }
+
+    /**
+     * 胜进模式 规律
+     */
+    private void getforthNum(int num) {
+//        for (int i = 0; i < num; i++) {
+//
+//        }
+
+    }
+
 }
