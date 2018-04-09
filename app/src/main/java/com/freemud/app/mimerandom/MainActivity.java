@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void getMyRandom(int num) {
         for (int i = 0; i < num; i++) {
             Random random = new Random();
-            int count = random.nextInt(15) + 3;
+            int count = random.nextInt(16) + 3;
             if (count <= 10) {
                 small++;
             } else {
@@ -129,8 +129,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             text7.setText(mMunTenList.toString());
         }
         firstText();
+        firstText2();
+        firstText3();
+        radioBtnFlag = 0;
         secondText();
         thirdText();
+        thirdText2();
+        thirdText3();
+        radioBtnFlag = 0;
         forthText1();
         forthText2();
         String text6Content = "大:" + big + "   小:" + small + "   单:" + single + "   双:" + doubles;
@@ -143,6 +149,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * 传统倍投
      * 1, 2 ,4, 8或 1，3，8，15 三期或四期一个周期，不中就回头
      */
+    String text7Content;
     private void firstText() {
         int payMoney = 0, getMoney = 0;
         int mflag = 0;
@@ -170,8 +177,87 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
         Log.d(TAG, "getMoney1=" + getMoney + "  payMoney1=" + payMoney);
-        String text7Content = "本金:" + payMoney + "元   回报:" + getMoney + "元   赚取:" + (getMoney - payMoney) + "元";
-        text1.setText(text7Content);
+        text7Content = "本金:" + payMoney + "元   回报:" + getMoney + "元   赚取:" + (getMoney - payMoney) + "元";
+//        text1.setText(text7Content);
+    }
+
+    /**
+     * 传统倍投
+     * 1, 2 ,4, 8或 1，3，8，15 三期或四期一个周期，不中就回头
+     * 大小交换
+     */
+    String firstContent;
+    private void firstText2() {
+        int payMoney = 0, getMoney = 0;
+        int mflag = 0;
+        for (int i = 0; i < mList.size(); i++) {
+            int key = mList.get(i);
+            if (radioBtnFlag == 0) {//大
+                if (key >= 11) {//中奖
+                    getMoney = getMoney + (int) Math.pow(2, mflag);
+                    radioBtnFlag =1;
+                    mflag = 0;
+                } else {//没中奖
+                    if (mflag > 3) mflag = 0;
+                    payMoney = payMoney + (int) Math.pow(2, mflag);
+                    mflag++;
+                }
+            } else if (radioBtnFlag == 1) {//小
+                if (key < 11) {//中奖
+                    getMoney = getMoney + (int) Math.pow(2, mflag);
+                    radioBtnFlag =0;
+                    mflag = 0;
+                } else {//没中奖
+                    if (mflag > 3) mflag = 0;
+                    payMoney = payMoney + (int) Math.pow(2, mflag);
+                    mflag++;
+                }
+            }
+
+        }
+        Log.d(TAG, "getMoney1=" + getMoney + "  payMoney1=" + payMoney);
+        firstContent ="本金:" + payMoney + "元   回报:" + getMoney + "元   赚取:" + (getMoney - payMoney) + "元";
+//        text1.setText(text7Content+"\n"+firstContent);
+    }
+
+    /**
+     * 传统倍投
+     * 1, 2 ,4, 8或 1，3，8，15 三期或四期一个周期，不中就回头
+     * 出大买大，出小买小
+     */
+    private void firstText3() {
+        int payMoney = 0, getMoney = 0;
+        int mflag = 0;
+        for (int i = 0; i < mList.size(); i++) {
+            int key = mList.get(i);
+            if (radioBtnFlag == 0) {//大
+                if (key >= 11) {//中奖
+                    getMoney = getMoney + (int) Math.pow(2, mflag);
+                    radioBtnFlag =0;
+                    mflag = 0;
+                } else {//没中奖
+                    if (mflag > 3) mflag = 0;
+                    payMoney = payMoney + (int) Math.pow(2, mflag);
+                    radioBtnFlag = 1;
+                    mflag++;
+                }
+            } else if (radioBtnFlag == 1) {//小
+                if (key < 11) {//中奖
+                    getMoney = getMoney + (int) Math.pow(2, mflag);
+                    radioBtnFlag =1;
+                    mflag = 0;
+                } else {//没中奖
+                    if (mflag > 3) mflag = 0;
+                    payMoney = payMoney + (int) Math.pow(2, mflag);
+                    radioBtnFlag =0;
+                    mflag++;
+                }
+            }
+
+        }
+        Log.d(TAG, "getMoney1=" + getMoney + "  payMoney1=" + payMoney);
+        String text8Content ="本金:" + payMoney + "元   回报:" + getMoney + "元   赚取:" + (getMoney - payMoney) + "元";
+        text1.setText(text7Content+"\n"+firstContent+"\n"+text8Content);
     }
 
     /**
@@ -211,6 +297,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * 进一退二法
      * 1，2，3，5，8，13，21，34....前两期之和，不中前进一步，中了后退2步
      */
+    String textThirdContent;
     private void thirdText() {
         int payMoney = 0, getMoney = 0;
         int mflag = 0;
@@ -229,7 +316,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     mflag++;
                 }
             } else if (radioBtnFlag == 1) {//小
-                if (key >= 11) {//中奖
+                if (key < 11) {//中奖
                     getMoney = getMoney + getThridNum(mflag);
                     if (mflag >= 2) {
                         mflag = mflag - 2;
@@ -243,8 +330,107 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
         Log.d(TAG, "getMoney3=" + getMoney + "  payMoney3=" + payMoney);
+        textThirdContent = "本金:" + payMoney + "元   回报:" + getMoney + "元   赚取:" + (getMoney - payMoney) + "元";
+//        text3.setText(text7Content);
+    }
+
+    /**
+     * 进一退二法
+     * 1，2，3，5，8，前两期之和，不中前进一步，中了后退2步
+     * 不中1，2，3，5，8
+     */
+    String textThirdContent2;
+    private void thirdText2() {
+        int payMoney = 0, getMoney = 0;
+        int mflag = 0;
+        for (int i = 0; i < mList.size(); i++) {
+            int key = mList.get(i);
+            if (radioBtnFlag == 0) {//大
+                if (key >= 11) {//中奖
+                    getMoney = getMoney + getThridNum(mflag);
+                    radioBtnFlag = 0;
+//                    if (mflag >= 2) {
+//                        mflag = mflag - 2;
+//                    } else {
+//                        mflag = 0;
+//                    }
+                    mflag = 0;
+                } else {//没中奖
+                    payMoney = payMoney + getThridNum(mflag);
+                    radioBtnFlag = 1;
+                    mflag++;
+                    if(mflag>4) mflag =0;
+                }
+            } else if (radioBtnFlag == 1) {//小
+                if (key < 11) {//中奖
+                    getMoney = getMoney + getThridNum(mflag);
+                    radioBtnFlag = 1;
+//                    if (mflag >= 2) {
+//                        mflag = mflag - 2;
+//                    } else {
+//                        mflag = 0;
+//                    }
+                    mflag = 0;
+                } else {//没中奖
+                    payMoney = payMoney + getThridNum(mflag);
+                    radioBtnFlag = 0 ;
+                    mflag++;
+                    if(mflag>4) mflag =0;
+                }
+            }
+        }
+        Log.d(TAG, "getMoney3=" + getMoney + "  payMoney3=" + payMoney);
+        textThirdContent2= "本金:" + payMoney + "元   回报:" + getMoney + "元   赚取:" + (getMoney - payMoney) + "元";
+//        text3.setText(textThirdContent+"\n"+text7Content);
+    }
+
+    /**
+     * 进一退二法
+     * 1，2，3，5，8，前两期之和，不中前进一步，中了后退2步
+     * 不中1，2，3，5，8
+     * 中了 大小交换 ， 没中继续追
+     */
+    private void thirdText3() {
+        radioBtnFlag = 0;
+        int payMoney = 0, getMoney = 0;
+        int mflag = 0;
+        for (int i = 0; i < mList.size(); i++) {
+            int key = mList.get(i);
+            if (radioBtnFlag == 0) {//大
+                if (key >= 11) {//中奖
+                    getMoney = getMoney + getThridNum(mflag);
+                    radioBtnFlag =1;
+//                    if (mflag >= 2) {
+//                        mflag = mflag - 2;
+//                    } else {
+//                        mflag = 0;
+//                    }
+                    mflag = 0;
+                } else {//没中奖
+                    payMoney = payMoney + getThridNum(mflag);
+                    mflag++;
+                    if(mflag>4) mflag =0;
+                }
+            } else if (radioBtnFlag == 1) {//小
+                if (key < 11) {//中奖
+                    getMoney = getMoney + getThridNum(mflag);
+                    radioBtnFlag =0;
+//                    if (mflag >= 2) {
+//                        mflag = mflag - 2;
+//                    } else {
+//                        mflag = 0;
+//                    }
+                    mflag = 0;
+                } else {//没中奖
+                    payMoney = payMoney + getThridNum(mflag);
+                    mflag++;
+                    if(mflag>4) mflag =0;
+                }
+            }
+        }
+        Log.d(TAG, "getMoney3=" + getMoney + "  payMoney3=" + payMoney);
         String text7Content = "本金:" + payMoney + "元   回报:" + getMoney + "元   赚取:" + (getMoney - payMoney) + "元";
-        text3.setText(text7Content);
+        text3.setText(textThirdContent+"\n"+textThirdContent2+"\n"+text7Content);
     }
 
     /**
@@ -254,6 +440,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void forthText1() {
         int payMoney = 0, getMoney = 0;
         int mflag = 0;
+        radioBtnFlag = 0;
         for (int i = 0; i < mList.size(); i++) {
             int key = mList.get(i);
             if (radioBtnFlag == 0) {//大
@@ -293,6 +480,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void forthText2() {
         int payMoney = 0, getMoney = 0;
         int mflag = 0;
+        radioBtnFlag = 0;
         for (int i = 0; i < mList.size(); i++) {
             int key = mList.get(i);
             if (radioBtnFlag == 0) {//大
