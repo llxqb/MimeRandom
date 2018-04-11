@@ -80,7 +80,7 @@
     <TextView
         android:id="@+id/text1"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="80dp"
         android:layout_marginTop="20dp"
         android:gravity="left|center_vertical"
         android:text="1, 2 ,4, 8或 1，3，8，15 三期或四期一个周期，不中就回头"
