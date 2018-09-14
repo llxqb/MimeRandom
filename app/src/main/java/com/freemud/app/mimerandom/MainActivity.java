@@ -1,5 +1,7 @@
 package com.freemud.app.mimerandom;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -706,5 +708,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return third;
     }
 
+    public static void start(Context context){
+        Intent intent = new Intent(context,MainActivity.class);
+        context.startActivity(intent);
+    }
 
 }
