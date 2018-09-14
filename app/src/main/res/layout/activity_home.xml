@@ -22,6 +22,33 @@
         android:gravity="center" />
 
     <Button
+        android:id="@+id/home_random2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="产生随机数2" />
+
+    <TextView
+        android:id="@+id/home_random_value2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:gravity="center" />
+
+
+    <Button
+        android:id="@+id/home_random_boss"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="终极一投" />
+
+    <TextView
+        android:id="@+id/home_random_boss_value"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:gravity="center" />
+
+    <Button
         android:id="@+id/home_go_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
